@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<odoo>
+     <record id="auditoria_posturas_comerciales_view_form" model="ir.ui.view"> 
+        <field name="name">Checklist Auditorias</field> 
+        <field name="model">auditoria.supervision</field>
+        <field name="arch" type="xml"> 
+            <form>                
+                <sheet>
+                    <div>
+                        <field name="numero_auditoria" readonly="1"/>
+                    </div>
+                    <group class="oe_edit_only"><field name="plantilla_id"/></group>
+                    <h1 align="center"><field name="name" placeholder="Nombre de Auditoria"/></h1>
+                    <group>
+                        <group>
+                            <field name="area"/>
+                            <field name="seccion" string="Sección"/>
+                            <field name="verifico" string="Verificó"/>
+                            <field name="auditado"/>
+                        </group>
+                        <group>
+                            <field name="fecha" string="Fecha y hora"/>
+                        </group>
+                    </group>
+                    <group> 
+                        <table style="width:100%">
+                            <!-- <tr>
+                                <th align="center" colspan="4"><h1><field name="name" placeholder="Nombre de Auditoria"/></h1></th>
+                            </tr>
+                            <tr>
+                                <th>Area</th>
+                                <td><field name="area"/></td>
+                                <th>Fecha</th>
+                                <td><field name="fecha"/></td>
+                            </tr>
+                            <tr>
+                                <th>Sección</th>
+                                <td><field name="seccion"/></td>
+                            </tr>
+                            <tr>
+                                <th>Verificó</th>
+                                <td><field name="verifico"/></td>
+                            </tr> -->
+                            <tr>
+                                <td align="center">
+                                    <table style="width:40%">
+                                        <tr align="center">
+                                            <td align="center" style="border: 1px solid black;">
+                                                <strong>Puntaje Máximo</strong>
+                                                </td>
+                                            <td align="center" style="border: 1px solid black;">
+                                                <strong>Puntaje Obtenido</strong>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <h4><field name="puntaje_maximo"/></h4></td>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <h4><field name="puntaje_obtenido"/></h4></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td align="center">
+                                    <table style="width:40%">
+                                        <tr>
+                                            <td colspan="2" align="center"><strong>Tabla de Evaluación</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fa fa-check"/> Aprobado</td>
+                                            <td align="center" style="background-color:green; color: white;">5 Pts</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fa fa-minus"/> Proceso</td>
+                                            <td align="center" style="background-color:yellow; color: black;">3 Pts</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fa fa-remove"/> No Cumple</td>
+                                            <td align="center" style="background-color:red; color: white;">0 Pts</td>
+                                        </tr>
+                                    </table>
+                                </td>                            
+                            </tr>
+                        </table>
+                    </group>
+                    <!-- <group>
+                        <table style="width:100%; border:1px solid black;border-collapse:collapse;">
+                            <tr>
+                                <th>N°</th>
+                                <th>CONCEPTO</th>
+                                <th>Aplica para tipo de Granja</th>
+                                <th>CUMPLE</th>
+                                <th>OBSERVACIONES</th>
+                            </tr>
+                        </table>
+                    </group> -->
+                    <notebook>
+                        <page>
+                            <field name="concepto_ids">
+                                <!-- <tree editable="bottom" colors="green:evaluacion=='aprobado';yellow:evaluacion=='proceso';red:evaluacion=='no_cumple'"> -->
+                                <tree editable="bottom" colors="blue:tipo=='seccion';">
+                                    <field name="numero" readonly="1" attrs="{'invisible': [('tipo','=','seccion')]}"/>
+                                    <field name="concepto" readonly="1"/>
+                                    <field name="resultado" readonly="1" attrs="{'invisible': [('tipo','=','concepto')]}"/>
+                                    <!--<field name="evaluacion" widget="radio" attrs="{'invisible': [('tipo','=','seccion')]}"/>-->
+
+                                    <button name="boton_aprobado" icon="fa-check" type="object" class="oe_highlight" attrs="{'invisible': ['|',('no_cumple','=',True),('proceso','=',True)]}"/>
+                                    
+                                    <button name="boton_proceso" icon="fa-minus" type="object" class="oe_highlight" attrs="{'invisible': ['|',('aprobado','=',True),('no_cumple','=', True)]}"/>
+                                    
+                                    <button name="boton_nocumple" icon="fa-remove" type="object" class="oe_highlight" attrs="{'invisible': ['|',('aprobado','=',True),('resultado','>',0)]}"/>
+                                    
+                                    <field name="aprobado" invisible="1"/>
+                                    <field name="proceso" invisible="1"/>
+                                    <field name="no_cumple" invisible="1"/>
+                                    <field name="observaciones" attrs="{'invisible': [('tipo','=','seccion')]}"/>
+                                    <field name="tipo" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <table width="100%">
+                        <td align="center"><button name="obtener_resultados" string="Obtener Resultado" type="object" class="btn btn-primary"/></td>
+                        <td align="center"><button name="imprimir_auditoria" string="Imprimir" type="object" class="buttonGreen"/></td>
+                    </table>
+                </sheet>
+            </form> 
+        </field> 
+    </record>
+
+     <record id="auditoria_posturas_comerciales_view_tree" model="ir.ui.view"> 
+        <field name="name">Checklist Auditorias</field> 
+        <field name="model">auditoria.supervision</field> 
+        <field name="arch" type="xml"> 
+           <tree>
+                <field name="numero_auditoria"/>
+                <field name="name"/>
+                <field name="area"/>
+                <field name="seccion"/>
+                <field name="verifico"/>
+                <field name="fecha"/> 
+           </tree> 
+        </field> 
+    </record>
+
+    <record model="ir.actions.act_window" id="action_auditoria_posturas_comerciales"> 
+        <field name="name">Checklist Auditorias</field> 
+        <field name="type">ir.actions.act_window</field> 
+        <field name="res_model">auditoria.supervision</field> 
+        <field name="view_type">form</field> 
+        <field name="view_mode">tree,form</field> 
+    </record>
+
+<!-- Menu --> 
+    <menuitem id="auditorias_grupoalvamex" name="Auditorias Grupoalvamex" sequence="10" web_icon="auditorias_grupoalvamex,static/description/icon.png"/>/> 
+    <menuitem id="auditorias_menu" name="Auditorias" sequence="10" parent="auditorias_grupoalvamex" action="action_auditoria_posturas_comerciales"/> 
+</odoo> 

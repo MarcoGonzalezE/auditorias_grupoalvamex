@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="paperformat_auditorita_reporte" model="report.paperformat">
+			<field name="name">US Bank Check</field>
+			<field name="default" eval="True"/>
+			<field name="format">custom</field>
+			<field name="page_height">297</field>
+			<field name="page_width">210</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">3</field>
+			<field name="margin_bottom">3</field>
+			<field name="margin_left">3</field>
+			<field name="margin_right">3</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">3</field>
+			<field name="dpi">80</field>
+        </record>
+
+		<report id="auditoria_reporte" string="Reporte" model="auditoria.supervision" report_type="qweb-pdf" name="auditorias_grupoalvamex.auditoria_reporte_document" paperformat="auditorias_grupoalvamex.paperformat_auditorita_reporte"/>
+
+        <template id="auditoria_reporte_document">
+        	<t t-call="report.html_container">
+        		<div class="page">
+        			<t t-foreach="docs" t-as="o">
+        				<br/>
+        				<table style="width:100%">
+        					<tr>
+                                <th colspan="5"><h3 align="center"><span t-field="o.name"/></h3></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <td align="center"><strong>Area</strong></td>
+                                <td align="center"><strong>Sección</strong></td>
+                                <td align="center"><strong>Verificó</strong></td>
+                                <td align="center"><strong>Auditado</strong></td>
+                                <td align="center"><strong>Fecha y hora</strong></td>
+                            </tr>
+                            <tr>
+                            	<td style="border: 1px solid black;" align="center"><span t-field="o.area"/></td>
+                                <td style="border: 1px solid black;" align="center"><span t-field="o.seccion"/></td>
+                                <td style="border: 1px solid black;" align="center"><span t-field="o.verifico"/></td>
+                                <td style="border: 1px solid black;" align="center"><span t-field="o.auditado"/></td>
+                                <td style="border: 1px solid black;" align="center"><span t-field="o.fecha"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="width:100%">
+                            <tr>
+                                <td align="center">
+                                    <table style="width:70%">
+                                        <tr align="center">
+                                            <td align="center" style="border: 1px solid black;">
+                                                <strong>Puntaje Máximo</strong>
+                                                </td>
+                                            <td align="center" style="border: 1px solid black;">
+                                                <strong>Puntaje Obtenido</strong>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <h4><span t-field="o.puntaje_maximo"/></h4></td>
+                                            <td style="border: 1px solid black;" align="center">
+                                                <h4><span t-field="o.puntaje_obtenido"/></h4></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td align="center">
+                                    <table style="width:50%; border: 1px solid black;">
+                                        <tr style="border: 1px solid black;">
+                                            <td colspan="2" align="center"><strong>Tabla de Evaluación</strong></td>
+                                        </tr>
+                                        <tr style="border: 1px solid black;">
+                                            <td><i class="fa fa-check"/> Aprobado</td>
+                                            <td align="center" style="background-color:green; color: white; border: 1px solid black;">5 Pts</td>
+                                        </tr>
+                                        <tr style="border: 1px solid black;">
+                                            <td><i class="fa fa-minus"/> Proceso</td>
+                                            <td align="center" style="background-color:yellow; color: black; border: 1px solid black;">3 Pts</td>
+                                        </tr>
+                                        <tr style="border: 1px solid black;">
+                                            <td><i class="fa fa-remove"/> No Cumple</td>
+                                            <td align="center" style="background-color:red; color: white; border: 1px solid black;">0 Pts</td>
+                                        </tr>
+                                    </table>                                    
+                                </td>                            
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table style="width:100%">
+                        	<tr style="border: 1px solid black;">
+                        		<td align="center" style="border: 1px solid black;"><strong>N°</strong></td>
+                        		<td align="center"><strong>Concepto</strong></td>
+                        		<td align="center"><strong>Resultado</strong></td>
+                        		<td align="center" style="border: 1px solid black;" colspan="3"><strong>Evaluacion</strong></td>
+                        		<td align="center" style="border: 1px solid black;"><strong>Observaciones</strong></td>
+                        	</tr>
+                        	<tr style="border: 1px solid black;" t-as="con" t-foreach="o.concepto_ids">
+                        		<td align="center" style="border: 1px solid black;"><t t-if="con.tipo == 'concepto'"><span t-field="con.numero"/></t></td>
+                        		<td style="width:50%">
+                        			<t t-if="con.tipo == 'seccion'"><strong><span style="color:0b497e;" t-field="con.concepto"/></strong></t>
+                        			<t t-if="con.tipo == 'concepto'"><small><span t-field="con.concepto"/></small></t>
+                        		</td>
+                        		<td align="center"><t t-if="con.tipo == 'seccion'"><strong><span style="color:0b497e;" t-field="con.resultado"/></strong></t></td>
+                        		<td align="center" style="border: 1px solid black;">
+                        			<t t-if="con.tipo == 'concepto'">
+                        				<t t-if="con.aprobado != False">
+                        					<i style="color:green" class="fa fa-check"/>
+                        				</t>
+                        				<!-- <span style="background-color:green" t-field="con.aprobado"/> -->
+                        			</t>
+                        		</td>
+                        		<td align="center" style="border: 1px solid black;">
+                        			<t t-if="con.tipo == 'concepto'">
+                        				<t t-if="con.proceso != False">
+                        					<!--<i style="color:#d4e100" class="fa fa-minus"/>-->
+                        					<i style="color:yellow" class="fa fa-minus"/>
+                        				</t>
+                        				<!-- <span style="background-color:yellow" t-field="con.proceso"/> -->
+                        			</t>
+                        		</td>
+                        		<td align="center" style="border: 1px solid black;">
+                        			<t t-if="con.tipo == 'concepto'">
+                        				<t t-if="con.no_cumple != False">
+                        					<i style="color:red" class="fa fa-remove"/>
+                        				</t>
+                        				<!-- <span style="background-color:red" t-field="con.no_cumple"/> -->
+                        			</t>
+                        		</td>
+                        		<td><span t-field="con.observaciones"/></td>
+                        	</tr>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

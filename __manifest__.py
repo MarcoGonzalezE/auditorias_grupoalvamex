@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Auditorias Grupoalvamex',
+    'version': '10.0.0.1.0',
+    'author': "Marco Gonzalez",
+    'maintainer': '',
+    'website': 'http://www.grupoalvamex.com/',
+    'license': 'AGPL-3',
+    'category': 'Survey',
+    'summary': '',
+    'depends': ['report','web_readonly_bypass'],
+    'description': """ """,
+    'demo': [],
+    'test': [],
+    'data': ['views/auditoria_posturas_comerciales_view.xml',
+            'views/auditoria_plantillas_view.xml',
+            'views/auditoria_reporte.xml',
+            'data/auditorias_data.xml',],
+    'css': ['static/src/css/auditoria.css'],
+    'installable': True,
+}
