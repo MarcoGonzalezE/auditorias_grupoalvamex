@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_auditoria_supervision,Auditorias,model_auditoria_supervision,acceso_auditorias_grupoalvamex,1,1,1,1
+access_auditoria_plantilla,Plantillas,model_auditoria_plantilla,acceso_auditorias_grupoalvamex,1,1,1,1
+access_auditoria_plantilla_secciones,Secciones,model_auditoria_plantilla_secciones,acceso_auditorias_grupoalvamex,1,1,1,1
+access_auditoria_plantilla_conceptos,Conceptos,model_auditoria_plantilla_conceptos,acceso_auditorias_grupoalvamex,1,1,1,1
+access_auditoria_pregunta_respuesta,Respuestas,model_auditoria_pregunta_respuesta,acceso_auditorias_grupoalvamex,1,1,1,1

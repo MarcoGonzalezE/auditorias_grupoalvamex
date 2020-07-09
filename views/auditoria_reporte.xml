@@ -24,9 +24,15 @@
         		<div class="page">
         			<t t-foreach="docs" t-as="o">
         				<br/>
-        				<table style="width:100%">
-        					<tr>
-                                <th colspan="5"><h3 align="center"><span t-field="o.name"/></h3></th>
+                        <table style="width:100%">
+                            <tr>
+                                <th style="70%"><h3 align="center"><span t-field="o.name"/></h3></th>
+                                <td  style="width:25%"><img src="/auditorias_grupoalvamex/static/description/avicampo.png" width="228" height="50" align="right"></img></td>
+                            </tr>
+                        </table>
+        				<table  style="width:100%">        					
+                            <tr>
+                                <td colspan="5"><small><span t-field="o.numero_auditoria"/></small></td>
                             </tr>
                             <tr style="border: 1px solid black;">
                                 <td align="center"><strong>Area</strong></td>
@@ -102,7 +108,7 @@
                         			<t t-if="con.tipo == 'concepto'"><small><span t-field="con.concepto"/></small></t>
                         		</td>
                         		<td align="center"><t t-if="con.tipo == 'seccion'"><strong><span style="color:0b497e;" t-field="con.resultado"/></strong></t></td>
-                        		<td align="center" style="border: 1px solid black;">
+                        		<td width="5%" align="center" style="border: 1px solid black;">
                         			<t t-if="con.tipo == 'concepto'">
                         				<t t-if="con.aprobado != False">
                         					<i style="color:green" class="fa fa-check"/>
@@ -110,7 +116,7 @@
                         				<!-- <span style="background-color:green" t-field="con.aprobado"/> -->
                         			</t>
                         		</td>
-                        		<td align="center" style="border: 1px solid black;">
+                        		<td width="5%" align="center" style="border: 1px solid black;">
                         			<t t-if="con.tipo == 'concepto'">
                         				<t t-if="con.proceso != False">
                         					<!--<i style="color:#d4e100" class="fa fa-minus"/>-->
@@ -119,7 +125,7 @@
                         				<!-- <span style="background-color:yellow" t-field="con.proceso"/> -->
                         			</t>
                         		</td>
-                        		<td align="center" style="border: 1px solid black;">
+                        		<td width="5%" align="center" style="border: 1px solid black;">
                         			<t t-if="con.tipo == 'concepto'">
                         				<t t-if="con.no_cumple != False">
                         					<i style="color:red" class="fa fa-remove"/>
@@ -130,6 +136,41 @@
                         		<td><span t-field="con.observaciones"/></td>
                         	</tr>
                         </table>
+                        <br/>
+                        <table width="100%">
+                            <tr>
+                                <td align="center">
+                                    <t t-if="o.firma_auditado">
+                                        <span t-field="o.firma_auditado" t-field-options='{"widget": "image","class": "oe_avatar"}'/>
+                                    </t>
+                                    <t t-else=""><br/><br/>______________________________________________</t>
+                                </td>
+                                <td align="center">
+                                    <t t-if="o.firma_verifico">
+                                        <span t-field="o.firma_verifico" t-field-options='{"widget": "image","class": "oe_avatar"}'/>
+                                    </t>
+                                    <t t-else=""><br/><br/>______________________________________________</t>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td align="center"><strong>Auditado</strong></td>
+                                <td align="center"><strong>Auditor</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <t t-if="o.firma_gerencia">
+                                        <span t-field="o.firma_gerencia" t-field-options='{"widget": "image","class": "oe_avatar"}'/>
+                                    </t>
+                                    <t t-else=""><br/><br/><br/>______________________________________________</t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center"><strong>Gerencia</strong></td>
+                            </tr>
+                        </table>
+                        <!-- <footer style="text-align: center;">
+                            <span t-field="o.numero_auditoria"/>
+                        </footer> -->
                     </t>
                 </div>
             </t>

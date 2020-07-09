@@ -122,6 +122,24 @@
                         <td align="center"><button name="obtener_resultados" string="Obtener Resultado" type="object" class="btn btn-primary"/></td>
                         <td align="center"><button name="imprimir_auditoria" string="Imprimir" type="object" class="buttonGreen"/></td>
                     </table>
+                    <br/>
+                    <table width="100%" style="border: 1px solid black;">
+                        <tr>
+                            <td align="center"><field name="firma_auditado" widget="signature"/></td>
+                            <td align="center"><field name="firma_verifico" widget="signature"/></td>
+                            
+                        </tr>
+                        <tr>
+                            <td align="center">Auditado</td>
+                            <td align="center">Verificó</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center"><field name="firma_gerencia" widget="signature"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">Gerencia</td>
+                        </tr>
+                    </table>
                 </sheet>
             </form> 
         </field> 

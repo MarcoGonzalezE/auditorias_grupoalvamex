@@ -15,6 +15,10 @@ class AuditoriaPosturas(models.Model):
 	puntaje_maximo = fields.Integer(string="Puntaje Maximo")
 	puntaje_obtenido = fields.Integer(string="Puntaje Obtenido")
 	numero_auditoria = fields.Char(string="Auditoria")
+	#Firmas
+	firma_auditado = fields.Binary(string="Firma Auditado")
+	firma_verifico = fields.Binary(string="Firma Verifico")
+	firma_gerencia = fields.Binary(string="Firma Gerencia")
 
 	@api.model
 	def create(self, vals):

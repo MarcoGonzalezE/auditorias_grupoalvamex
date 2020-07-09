@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		<record id="group_auditorias_grupoalvamex" model="ir.module.category">
+			<field name="name">Auditorias</field>
+			<field name="sequence">18</field>
+		</record>
+
+		<record id="acceso_auditorias_grupoalvamex" model="res.groups">
+			<field name="name">Acceso</field>
+			<field name="category_id" ref="group_auditorias_grupoalvamex"/>
+			<field name="implied_ids" eval="[(4, ref('base.group_user','base.group_system'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root'))]"/>
+		</record>
+	</data>
+</odoo>
