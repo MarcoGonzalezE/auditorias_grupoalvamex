@@ -7,6 +7,9 @@
 		<field name="arch" type="xml">
 			<form>
 				<h2><field name="name" placeholder="Nombre de Plantilla"/></h2>
+				<group>
+					<field name="tipo"/>
+				</group>
 				<notebook string="Seccion">
 					<page string="Seccion">
 						<field name="seccion_ids">
@@ -56,6 +59,7 @@
 							<tree editable="bottom">
 								<field name="sequence" widget="handle"/>
 								<field name="name"/>
+								<field name="tipo"/>
 							</tree>
 						</field>
 					</page>

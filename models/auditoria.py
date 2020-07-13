@@ -45,8 +45,10 @@ class AuditoriaPosturas(models.Model):
 			seccion = self.env['auditoria.plantilla.secciones'].search([('id','=',p.id)])
 			p_ids.append((0,0,{'concepto':seccion.name,'tipo':'seccion','aprobado':True,'proceso':True,'no_cumple':True}))
 			for s in seccion.conceptos_ids:
-				num += 1
-				p_ids.append((0,0,{'concepto':s.name,'tipo':'concepto','numero':num}))
+				concepto = self.env['auditoria.plantilla.conceptos'].search([('id','=', s.id),('tipo','in',(plantilla.tipo.id,1))])
+				for c in concepto:
+					num += 1
+					p_ids.append((0,0,{'concepto':c.name,'tipo':'concepto','numero':num}))
 			self.puntaje_maximo = num * 5
 
 		self.concepto_ids = p_ids

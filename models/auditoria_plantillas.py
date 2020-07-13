@@ -5,6 +5,7 @@ class AuditoriaPlantillas(models.Model):
 	_name = 'auditoria.plantilla'
 
 	name = fields.Char(string="Nombre")
+	tipo = fields.Many2one('auditoria.tipo', string="Tipo")
 	seccion_ids = fields.Many2many('auditoria.plantilla.secciones', string="Secciones")
 
 
@@ -32,11 +33,15 @@ class AuditoriaPlantillaSecciones(models.Model):
             'target':'current',
         }
 
-
 class AuditoriaConceptos(models.Model):
 	_name = 'auditoria.plantilla.conceptos'
 
 	name = fields.Char(string="Concepto")
+	tipo = fields.Many2one('auditoria.tipo', string="Tipo")
 	seccion_id = fields.Many2one('auditoria.plantilla.secciones', string="Seccion ID")
 	sequence = fields.Integer(string='Sequence', default=10)
 
+class AuditoriaTipo(models.Model):
+	_name = 'auditoria.tipo'
+
+	name = fields.Char(string="Tipo")
