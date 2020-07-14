@@ -9,20 +9,21 @@
                     <div>
                         <field name="numero_auditoria" readonly="1"/>
                     </div>
-                    <group class="oe_edit_only"><field name="plantilla_id"/></group>
-                    <h1 align="center"><field name="name" placeholder="Nombre de Auditoria"/></h1>
+                    <group class="oe_edit_only"><field name="plantilla_id" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></group>
+                    <h1 align="center"><field name="name" placeholder="Nombre de Auditoria" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></h1>
                     <group>
                         <group>
-                            <field name="area"/>
-                            <field name="seccion" string="Sección"/>
-                            <field name="verifico" string="Verificó"/>
-                            <field name="auditado"/>
+                            <field name="area" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/>
+                            <field name="seccion" string="Sección" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/>
+                            <field name="verifico" string="Verificó" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/>
+                            <field name="auditado" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/>
                         </group>
                         <group>
-                            <field name="fecha" string="Fecha y hora"/>
+                            <field name="fecha" string="Fecha y hora" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/>
+                            <field name="estado" invisible="1"/>
                         </group>
                     </group>
-                    <group> 
+                    <group>
                         <table style="width:100%">
                             <!-- <tr>
                                 <th align="center" colspan="4"><h1><field name="name" placeholder="Nombre de Auditoria"/></h1></th>
@@ -43,7 +44,7 @@
                             </tr> -->
                             <tr>
                                 <td align="center">
-                                    <table style="width:40%">
+                                    <table style="width:35%">
                                         <tr align="center">
                                             <td align="center" style="border: 1px solid black;">
                                                 <strong>Puntaje Máximo</strong>
@@ -54,14 +55,24 @@
                                         </tr>
                                         <tr>
                                             <td style="border: 1px solid black;" align="center">
-                                                <h4><field name="puntaje_maximo"/></h4></td>
+                                                <h4><field name="puntaje_maximo" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></h4></td>
                                             <td style="border: 1px solid black;" align="center">
-                                                <h4><field name="puntaje_obtenido"/></h4></td>
+                                                <h4><field name="puntaje_obtenido" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></h4></td>
                                         </tr>
                                     </table>
                                 </td>
                                 <td align="center">
-                                    <table style="width:40%">
+                                    <table style="width:20%">
+                                        <tr>
+                                            <td align="center"><strong>Calificación</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><h3><field name="calificacion"/></h3></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td align="center">
+                                    <table style="width:35%">
                                         <tr>
                                             <td colspan="2" align="center"><strong>Tabla de Evaluación</strong></td>
                                         </tr>
@@ -95,7 +106,7 @@
                     </group> -->
                     <notebook>
                         <page>
-                            <field name="concepto_ids">
+                            <field name="concepto_ids" attrs="{'readonly': [('estado', '=', 'finalizada')]}">
                                 <!-- <tree editable="bottom" colors="green:evaluacion=='aprobado';yellow:evaluacion=='proceso';red:evaluacion=='no_cumple'"> -->
                                 <tree editable="bottom" colors="blue:tipo=='seccion';">
                                     <field name="numero" readonly="1" attrs="{'invisible': [('tipo','=','seccion')]}"/>
@@ -119,22 +130,22 @@
                         </page>
                     </notebook>
                     <table width="100%">
-                        <td align="center"><button name="obtener_resultados" string="Obtener Resultado" type="object" class="btn btn-primary"/></td>
-                        <td align="center"><button name="imprimir_auditoria" string="Imprimir" type="object" class="buttonGreen"/></td>
+                        <td align="center"><button name="obtener_resultados" string="Obtener Resultado" type="object" class="btn btn-primary" attrs="{'invisible': [('estado', '=', 'finalizada')]}"/></td>
+                        <td align="center"><button name="imprimir_auditoria" string="Imprimir" type="object" class="btn btn-primary"/></td>
+                        <td align="center"><button name="final" string="Finalizar" type="object" class="btn btn-primary" attrs="{'invisible': [('estado', '=', 'finalizada')]}"/></td>
                     </table>
                     <br/>
                     <table width="100%" style="border: 1px solid black;">
                         <tr>
-                            <td align="center"><field name="firma_auditado" widget="signature"/></td>
-                            <td align="center"><field name="firma_verifico" widget="signature"/></td>
-                            
+                            <td align="center"><field name="firma_auditado" widget="signature" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></td>
+                            <td align="center"><field name="firma_verifico" widget="signature" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></td>
                         </tr>
                         <tr>
                             <td align="center">Auditado</td>
                             <td align="center">Verificó</td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center"><field name="firma_gerencia" widget="signature"/></td>
+                            <td colspan="2" align="center"><field name="firma_gerencia" widget="signature" attrs="{'readonly': [('estado', '=', 'finalizada')]}"/></td>
                         </tr>
                         <tr>
                             <td colspan="2" align="center">Gerencia</td>

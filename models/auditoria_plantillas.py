@@ -35,6 +35,7 @@ class AuditoriaPlantillaSecciones(models.Model):
 
 class AuditoriaConceptos(models.Model):
 	_name = 'auditoria.plantilla.conceptos'
+	_order = 'sequence'
 
 	name = fields.Char(string="Concepto")
 	tipo = fields.Many2one('auditoria.tipo', string="Tipo")

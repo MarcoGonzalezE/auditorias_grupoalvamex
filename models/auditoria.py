@@ -15,6 +15,8 @@ class AuditoriaPosturas(models.Model):
 	puntaje_maximo = fields.Integer(string="Puntaje Maximo")
 	puntaje_obtenido = fields.Integer(string="Puntaje Obtenido")
 	numero_auditoria = fields.Char(string="Auditoria")
+	estado = fields.Selection([('linea','En Linea'),('finalizada','Finalizada')], string="Estado", default='linea')
+	calificacion = fields.Integer(string="Calificacion")
 	#Firmas
 	firma_auditado = fields.Binary(string="Firma Auditado")
 	firma_verifico = fields.Binary(string="Firma Verifico")
@@ -26,12 +28,6 @@ class AuditoriaPosturas(models.Model):
 			vals['numero_auditoria'] = self.env['ir.sequence'].next_by_code('auditoria.supervision') or "Nuevo"
 		return  super(AuditoriaPosturas, self).create(vals)
 
-
-	# @api.model
-    # def create(self, vals):
-    #     if vals.get('numero_auditoria', 'Nuevo') == 'Nuevo':
-    #         vals['numero_auditoria'] = self.env['ir.sequence'].next_by_code('auditoria.supervision') or "Nuevo"
-    #     return super(AuditoriaPosturas, self).create(vals)
 
 	@api.multi
 	@api.onchange('plantilla_id')
@@ -45,7 +41,7 @@ class AuditoriaPosturas(models.Model):
 			seccion = self.env['auditoria.plantilla.secciones'].search([('id','=',p.id)])
 			p_ids.append((0,0,{'concepto':seccion.name,'tipo':'seccion','aprobado':True,'proceso':True,'no_cumple':True}))
 			for s in seccion.conceptos_ids:
-				concepto = self.env['auditoria.plantilla.conceptos'].search([('id','=', s.id),('tipo','in',(plantilla.tipo.id,1))])
+				concepto = self.env['auditoria.plantilla.conceptos'].search([('id','=', s.id),('tipo','in',(plantilla.tipo.id,1))],order="sequence asc")
 				for c in concepto:
 					num += 1
 					p_ids.append((0,0,{'concepto':c.name,'tipo':'concepto','numero':num}))
@@ -53,6 +49,7 @@ class AuditoriaPosturas(models.Model):
 
 		self.concepto_ids = p_ids
 		self.puntaje_obtenido = 0
+		self.calificacion = 0
 
 	# def obtener_resultados(self):
 	# 	for c in self.concepto_ids:
@@ -72,6 +69,8 @@ class AuditoriaPosturas(models.Model):
 	def obtener_resultados(self):
 		respuestas = self.env['auditoria.pregunta.respuesta'].search([('auditoria_id','=',self.id),('tipo','=','seccion')])
 		total = 0
+		validos = 0
+		cal = 0
 		for r in respuestas:
 			secciones = self.env['auditoria.plantilla.secciones'].search([('name','=',r.concepto)])
 			suma = 0
@@ -79,13 +78,23 @@ class AuditoriaPosturas(models.Model):
 				conceptos = self.env['auditoria.pregunta.respuesta'].search([('concepto','=',s.name),('auditoria_id','=',self.id)])
 				for c in conceptos:
 					suma = c.resultado + suma
+					if c.no_cumple == False and c.aprobado == False and c.proceso == False:
+						c.observaciones = 'No Aplica'
+					else:
+						validos += 1
+						if c.observaciones == 'No Aplica':
+							c.observaciones = ''
 				r.resultado = suma
 			total = r.resultado + total
-			print(total)
 		self.puntaje_obtenido = total
-
+		self.puntaje_maximo = validos * 5
+		cal = float(self.puntaje_obtenido)/float(self.puntaje_maximo)
+		self.calificacion = cal * 100
 
 	@api.multi
 	def imprimir_auditoria(self):
 		return self.env['report'].get_action(self, 'auditorias_grupoalvamex.auditoria_reporte_document')
+
+	def final(self):
+		self.estado = 'finalizada'
 
