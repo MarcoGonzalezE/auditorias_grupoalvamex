@@ -18,6 +18,8 @@
             'views/auditoria_plantillas_view.xml',
             'views/auditoria_reporte.xml',
             'views/web_digital_sign_view.xml',
+            'views/extinguisher.xml',
+            'views/menus.xml',
             'security/ir.model.access.csv',
             'data/auditorias_data.xml',],
     'css': ['static/src/css/auditoria.css'],

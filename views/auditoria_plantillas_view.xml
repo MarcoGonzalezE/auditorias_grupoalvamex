@@ -43,9 +43,6 @@
         <field name="view_mode">tree,form</field> 
     </record>
 
-    <!-- Menu -->
-    <menuitem id="auditoria_plantilla_menu" name="Plantillas" sequence="20" parent="auditorias_grupoalvamex" action="action_auditoria_plantillas"/>
-
     <!-- Secciones -->
     <record id="auditoria_plantillas_secciones_view_form" model="ir.ui.view">
 		<field name="name">Plantilla de Auditoria</field>

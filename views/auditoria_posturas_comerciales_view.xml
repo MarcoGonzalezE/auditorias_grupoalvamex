@@ -170,7 +170,6 @@
            </tree> 
         </field> 
     </record>
-
     <record model="ir.actions.act_window" id="action_auditoria_posturas_comerciales"> 
         <field name="name">Checklist Auditorias</field> 
         <field name="type">ir.actions.act_window</field> 
@@ -178,8 +177,4 @@
         <field name="view_type">form</field> 
         <field name="view_mode">tree,form</field> 
     </record>
-
-<!-- Menu --> 
-    <menuitem id="auditorias_grupoalvamex" name="Auditorias Grupoalvamex" sequence="10" web_icon="auditorias_grupoalvamex,static/description/icon.png"/>/> 
-    <menuitem id="auditorias_menu" name="Auditorias" sequence="10" parent="auditorias_grupoalvamex" action="action_auditoria_posturas_comerciales"/> 
 </odoo> 

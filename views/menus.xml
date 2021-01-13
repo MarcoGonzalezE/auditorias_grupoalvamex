@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+          <record id="stock_extinguisher_action" model="ir.actions.act_window">
+            <field name="name">Extintores</field>
+            <field name="res_model">stock.extinguisher</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p>No se encontro extintor</p>
+            </field>
+        </record>
+
+        <menuitem id="auditorias_grupoalvamex" name="Auditorias Grupoalvamex" sequence="10" web_icon="auditorias_grupoalvamex,static/description/icon.png"/>
+        <menuitem id="auditorias_menu" name="Auditorias" sequence="10" parent="auditorias_grupoalvamex" action="action_auditoria_posturas_comerciales"/>
+        <menuitem id="auditoria_plantilla_menu" name="Plantillas" sequence="20" parent="auditorias_grupoalvamex" action="action_auditoria_plantillas"/>
+        <menuitem id="mantenimiento_extintores" name="Extintores" parent="auditorias_grupoalvamex"
+                  action="action_preventive_extinguisher" sequence="30"/>
+        <menuitem id="config_parent_menu" name="Configuracion" parent="auditorias_grupoalvamex"
+                   sequence="60"/>
+        <menuitem id="inventario_extintores" name="Extintores" parent="config_parent_menu" sequence="50"
+                  action="stock_extinguisher_action"/>
+
+    </data>
+</odoo>
