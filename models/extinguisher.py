@@ -129,6 +129,9 @@ class WebsiteSupportTicketExtinguisherLine(models.Model):
     etiquetado = fields.Boolean(string="Etiquetado")
     base = fields.Boolean(string="Gancho o Base")
     senaletica = fields.Boolean(string="Senaletica")
+    libre_obstruccion = fields.Boolean(string="Libre de Obstrucciones")
+    limpieza = fields.Boolean(string="Limpieza en General")
+    altura_correcta = fields.Boolean(string="Altura correcta")
     recarga = fields.Selection([('si', 'Si'), ('no', 'No')], string="Recarga")
     observaciones = fields.Text("Observaciones")
 

@@ -53,8 +53,8 @@
                             </group>
                         </group>
                         <br/>
-                        <div>
-                            <field name="extintores_ids">
+                        <group>
+                            <field name="extintores_ids" nolabel="1">
                                 <tree editable="bottom">
                                     <field name="extintor_id"/>
                                     <field name="ubicacion" readonly="1"/>
@@ -67,6 +67,9 @@
                                     <field name="boquilla"/>
                                     <field name="cilindro"/>
                                     <field name="etiquetado"/>
+                                    <field name="libre_obstruccion"/>
+                                    <field name="limpieza"/>
+                                    <field name="altura_correcta"/>
                                     <field name="base"/>
                                     <field name="senaletica"/>
                                     <field name="recarga" widget="radio"/>
@@ -74,7 +77,7 @@
                                     <field name="observaciones"/>
                                 </tree>
                             </field>
-                        </div>
+                        </group>
                     </sheet>
                 </form>
             </field>
