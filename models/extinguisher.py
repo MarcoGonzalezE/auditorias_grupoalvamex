@@ -8,7 +8,8 @@ class StockExtinguisher(models.Model):
     _description = "Inventario de Extintores"
 
     name = fields.Char(string="Numero de Extintor")
-    location = fields.Char(string="Ubicacion")
+    location_id = fields.Many2one(comodel_name="location.extinguisher",string="Ubicacion")
+    sub_location = fields.Char(string="Sub Ubicacion")
     capacity = fields.Char(string="Capacidad (KG)")
     due_date = fields.Date(string="Fecha de Vencimiento")
 
@@ -112,12 +113,12 @@ class PreventiveMaintenanceExtinguisher(models.Model):
         return self.env['report'].get_action(self, 'auditorias_grupoalvamex.reporte_bitacora_extintores_document')
 
 
-class WebsiteSupportTicketExtinguisherLine(models.Model):
+class PreventiveExtinguisherLine(models.Model):
     _name = 'preventive.extinguisher.line'
 
     reporte_id = fields.Many2one('preventive.extinguisher', string="Reporte")
     extintor_id = fields.Many2one('stock.extinguisher', string="Extintor")
-    ubicacion = fields.Char(related="extintor_id.location", string="Ubicacion")
+    ubicacion = fields.Char(related="extintor_id.sub_location", string="Ubicacion")
     capacidad = fields.Char(related="extintor_id.capacity", string="Capacidad")
     manometro = fields.Boolean(string="Manometro")
     manilla_accion = fields.Boolean(string="Manilla de Accion")
@@ -136,5 +137,7 @@ class WebsiteSupportTicketExtinguisherLine(models.Model):
     observaciones = fields.Text("Observaciones")
 
 
+class LocationExtinguisher(models.Model):
+    _name = 'location.extinguisher'
 
-
+    name = fields.Char(string="Lugar")

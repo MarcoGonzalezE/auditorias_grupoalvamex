@@ -275,7 +275,8 @@
             <field name="arch" type="xml">
                 <tree string="Extintores" editable="buttom">
                     <field name="name"/>
-                    <field name="location"/>
+                    <field name="location_id"/>
+                    <field name="sub_location"/>
                     <field name="capacity"/>
                     <field name="due_date"/>
                 </tree>
